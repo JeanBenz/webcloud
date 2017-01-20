@@ -1,6 +1,11 @@
 #! /bin/bash
-#remplacer xxx par l'adresse IP de votre serveur
-tail -n +3 "$0" | ssh root@xxx.xxx.xxx.xxx ; exit
+
+if [[ $1=""]]
+then
+echo "erreur veuillez renseigner l'adresse IP du serveur"
+else    
+
+tail -n +3 "$0" | ssh root$1 ; exit
 set -eu
 
 #update serveur
