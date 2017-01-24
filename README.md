@@ -1,8 +1,17 @@
 # webcloud
-test
+Projet Architecture SI
+Benoît LAPORTE MANY
+Jean Baptiste LEBLANC
 
-ssh root@xxx.xxx.xxx.xxx < deploy.sh
+Fichiers disponibles :
+-README.md
+-deployed.dh
+-index.html
 
+
+
+
+ssh root@xxx.xxx.xxx.xxx 
 
 
 bunzip 
