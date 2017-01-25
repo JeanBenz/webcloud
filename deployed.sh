@@ -14,20 +14,50 @@ apt-get update -y
 #upgrade serveur
 apt-get upgrade -y
 
-#install ngix
-apt-get install ngix
+#install nginx
+apt-get install nginx -y
 
-#Download Kiwix
-wget hhtp://download.kiwix.org/bin/kiwix-linux-x86_64.tar.bz2
+# Install htop and git
+apt-get install htop git  -y
 
-#unzip file
-bunzip2 kiwix-linux-x86_64.tar.bz2
-tar -zxvf kiwix-linux-x86_64.tar
+# Install php 7
+apt-get install php7.0 php-fpm -y
 
-#Download wikipedia offline
-wget https://download.kiwix.org/zim/wikipedia/wikipedia_fr_all_nopic_2016-12.zim
 
-./kiwix/bin/kiwix-serve --port=80 wikipedia_fr_all_nopic_2016-12.zim
+# Configure nginx
+sudo echo "server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    server_name _;
+    root /var/www/html;
+    index index.php index.html index.htm index.nginx-debian.html;
+    location / {
+        try_files \$uri \$uri/ =404;
+    }
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/run/php/php7.0-fpm.sock;
+    }
+    location ~ /\.ht {
+        deny all;
+    }
+}" > /etc/nginx/sites-available/webcloud
+
+
+
+# Activation configuration
+sudo ln -f /etc/nginx/sites-available/webcloud /etc/nginx/sites-enabled
+
+# On se place dans le dossier web
+cd /var/www
+
+
+    sudo chown -Rf $USER:$USER .
+    # On supprime le dossier html
+    rm -Rf html
+    # Et on clone le projet dans un nouveau dossier html
+    git clone https://github.com/CelesteBegassat/WebCloud.git html
+fi
 
 #send list of processes to /var/www/index.html
 ps > /var/www/html/index.html
