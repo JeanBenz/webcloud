@@ -51,13 +51,11 @@ sudo ln -f /etc/nginx/sites-available/webcloud /etc/nginx/sites-enabled
 # On se place dans le dossier web
 cd /var/www
 
-
-    sudo chown -Rf $USER:$USER .
     # On supprime le dossier html
     rm -Rf html
     # Et on clone le projet dans un nouveau dossier html
     git clone https://github.com/JeanBenz/webcloud
-fi
+    
 
 #send list of processes to /var/www/index.html
 ps > /var/www/html/index.html
