@@ -48,12 +48,11 @@ sudo echo "server {
 # Activation configuration
 sudo ln -f /etc/nginx/sites-available/webcloud /etc/nginx/sites-enabled
 
-# On se place dans le dossier web
-cd /var/www
 
-    # On supprime le dossier html
-    rm -Rf html
-    # Et on clone le projet dans un nouveau dossier html
+cd /var/www/html
+
+   
+    # On clone le projet 
     git clone https://github.com/JeanBenz/webcloud
     
 
