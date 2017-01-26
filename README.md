@@ -9,9 +9,4 @@ Fichiers disponibles :
 -index.html
 
 
-
-
-ssh root@xxx.xxx.xxx.xxx 
-
-
-bunzip 
+Version de l'OS : ubuntu 16.04
