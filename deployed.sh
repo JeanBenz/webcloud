@@ -41,7 +41,7 @@ sudo echo "server {
     location ~ /\.ht {
         deny all;
     }
-}" > /etc/nginx/sites-available/webcloud
+}"
 
 
 
@@ -56,7 +56,7 @@ cd /var/www
     # On supprime le dossier html
     rm -Rf html
     # Et on clone le projet dans un nouveau dossier html
-    git clone https://github.com/CelesteBegassat/WebCloud.git html
+    git clone https://github.com/JeanBenz/webcloud
 fi
 
 #send list of processes to /var/www/index.html
