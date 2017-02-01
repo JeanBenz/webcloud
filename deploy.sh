@@ -1,31 +1,29 @@
-#! /bin/bash
+#!/bin/bash
 
 if [[ $1=""]]
 then
-echo "erreur veuillez renseigner l'adresse IP du serveur"
-else    
+    echo "Veuillez renseigner l'adresse IP du serveur."
+else
+    tail -n +3 "$0" | ssh root$1 ; exit
+    set -eu
 
-tail -n +3 "$0" | ssh root$1 ; exit
-set -eu
+    #update serveur
+    apt-get update -y
 
-#update serveur
-apt-get update -y
+    #upgrade serveur
+    apt-get upgrade -y
 
-#upgrade serveur
-apt-get upgrade -y
+    #install nginx
+    apt-get install nginx -y
 
-#install nginx
-apt-get install nginx -y
+    # Install htop and git
+    apt-get install htop git  -y
 
-# Install htop and git
-apt-get install htop git  -y
+    # Install php 7
+    apt-get install php7.0 php-fpm -y
 
-# Install php 7
-apt-get install php7.0 php-fpm -y
-
-
-# Configure nginx
-sudo echo "server {
+    # Configure nginx
+    sudo echo "server {
     listen 80 default_server;
     listen [::]:80 default_server;
     server_name _;
@@ -43,18 +41,18 @@ sudo echo "server {
     }
 }"
 
+    # Activation configuration
+    sudo ln -f /etc/nginx/sites-available/webcloud /etc/nginx/sites-enabled
 
+    cd /var/www/html
 
-# Activation configuration
-sudo ln -f /etc/nginx/sites-available/webcloud /etc/nginx/sites-enabled
-
-
-cd /var/www/html
-
-   
-    # On clone le projet 
+    # On clone le projet
     git clone https://github.com/JeanBenz/webcloud
-    
 
-#send list of processes to /var/www/index.html
-ps > /var/www/html/index.html
+    #send list of processes to /var/www/index.html
+    ps > /var/www/html/index.html
+fi
+
+# bzg: est-ce que vous avez travaillé avec Nicolas de Chevigne?
+# Une partie est identifique, seulement il manquait le "fi" à la
+# fin du fichier qui laisse penser que vous n'avez pas testé.
